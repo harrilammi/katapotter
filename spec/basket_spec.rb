@@ -60,5 +60,10 @@ describe Basket do
       @basket.add(["one", "one", "two", "three", "three", "four"])
       @basket.price.should == 8*4*0.8+8*2*0.95
     end
+
+    it "should calculate best discount with even more titles" do
+      @basket.add(["one", "two", "two", "three", "four", "five"])
+      @basket.price.should == 8+8*5*0.75
+    end
   end
 end
