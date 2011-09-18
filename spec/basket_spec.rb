@@ -8,68 +8,68 @@ describe Basket do
 
   describe "with no discount" do
     it "should cost 8e for one book" do
-      @basket.add(["four"])
+      @basket.add([4])
       @basket.price.should == 8
     end
 
     it "should cost 16e for two books of the same title" do
-      @basket.add(["four", "four"])
+      @basket.add([4,4])
       @basket.price.should == 2*8
     end
 
     it "should cost 24e for three books of the same title" do
-      @basket.add(["four", "four", "four"])
+      @basket.add([4,4,4])
       @basket.price.should == 3*8
     end
   end
   
   describe "with simple discounts" do
   	it "should be 5% for 2 different titles" do
-  		@basket.add(["one","three"])
+  		@basket.add([1,3])
   		@basket.price.should == 8*2*0.95
   	end
 
     it "should be 10% for 3 different titles" do
-      @basket.add(["one","three", "five"])
+      @basket.add([1,3,5])
       @basket.price.should == 3*8*0.9
     end
 
     it "should be 20% for 4 different titles" do
-      @basket.add(["one","three", "five", "two"])
+      @basket.add([1,3, 5, 2])
       @basket.price.should == 4*8*0.8
     end
 
     it "should be 25% for 5 different titles" do
-      @basket.add(["one","three", "five", "two", "four"])
+      @basket.add([1,3,5,2,4])
       @basket.price.should == 5*8*0.75
     end
   end
 
   describe "several discounts" do
     it "should be 5% for 3 books from which 2 are same titles" do
-      @basket.add(["one", "five", "one"])
+      @basket.add([1,5,1])
       @basket.price.should == 8+8*2*0.95
     end
 
     it "should be 5% for 4 books which are 2 different titles" do
-      @basket.add(["one", "five", "five", "one"])
+      @basket.add([1,5,5,1])
       @basket.price.should == 2*8*2*0.95
     end
 
     it "should calculate best discount with several titles" do
-      @basket.add(["one", "one", "two", "three", "three", "four"])
+      @basket.add([1,1,2,3,3,4])
       @basket.price.should == 8*4*0.8+8*2*0.95
     end
 
     it "should calculate best discount with even more titles" do
-      @basket.add(["one", "two", "two", "three", "four", "five"])
+      @basket.add([1,2,2,3,4,5])
       @basket.price.should == 8+8*5*0.75
     end
   end
 
   describe "the edge cases" do
     it "should calculate the best discount from set 1" do
-      @basket.add(["one", "one", "two", "two", "three", "three", "four", "five"])
+      @basket.add([1,1,2,2,3,3,4,5])
       @basket.price.should == 2*8*4*0.8
     end
   end
@@ -78,7 +78,7 @@ describe Basket do
     
     describe "with books in basket" do
       before :each do
-        @basket.add(["one", "one", "two", "two", "two", "three", "three", "four", "four", "four", "four"])
+        @basket.add([1,1,2,2,2,3,3,4,4,4,4])
       end
 
       it "should count the number of books" do
@@ -89,11 +89,11 @@ describe Basket do
 
       it "should subtract books from the titles with most books" do
         titles = @basket.subtract_titles @basket.titles, 3
-        titles["one"].should == 1
-        titles["two"].should == 2
-        titles["three"].should == 2
-        titles["four"].should == 3
-        titles["five"].should == 0
+        titles[1].should == 1
+        titles[2].should == 2
+        titles[3].should == 2
+        titles[4].should == 3
+        titles[5].should == 0
       end
 
       it "should recognize basket has books" do
@@ -104,7 +104,7 @@ describe Basket do
     
     describe "with empty basket" do
       before :each do
-        @empty_hash = {"one" => 0, "two" => 0, "three" => 0, "four" => 0, "five" => 0}
+        @empty_hash = {1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0}
       end
 
       it "should recognize empty basket" do 

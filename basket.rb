@@ -2,7 +2,7 @@ class Basket
 
   def initialize
     #puts "Basket init"
-    @titles = {"one" => 0, "two" => 0, "three" => 0, "four" => 0, "five" => 0}
+    @titles = {1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0}
     @discounts = [1, 0.95, 0.90, 0.80, 0.75]
   end
 
