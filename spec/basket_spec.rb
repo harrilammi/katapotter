@@ -66,4 +66,55 @@ describe Basket do
       @basket.price.should == 8+8*5*0.75
     end
   end
+
+  describe "the edge cases" do
+    it "should calculate the best discount from set 1" do
+      @basket.add(["one", "one", "two", "two", "three", "three", "four", "five"])
+      @basket.price.should == 2*8*4*0.8
+    end
+  end
+
+  describe "helper functions" do
+    
+    describe "with books in basket" do
+      before :each do
+        @basket.add(["one", "one", "two", "two", "two", "three", "three", "four", "four", "four", "four"])
+      end
+
+      it "should count the number of books" do
+        books, different_books = @basket.book_stats @basket.titles
+        books.should == 11
+        different_books.should == 4
+      end
+
+      it "should subtract books from the titles with most books" do
+        titles = @basket.subtract_titles @basket.titles, 3
+        titles["one"].should == 1
+        titles["two"].should == 2
+        titles["three"].should == 2
+        titles["four"].should == 3
+        titles["five"].should == 0
+      end
+
+      it "should recognize basket has books" do
+        is_empty = @basket.is_empty? @basket.titles
+        is_empty.should == false
+      end
+    end
+    
+    describe "with empty basket" do
+      before :each do
+        @empty_hash = {"one" => 0, "two" => 0, "three" => 0, "four" => 0, "five" => 0}
+      end
+
+      it "should recognize empty basket" do 
+        is_empty = @basket.is_empty? @empty_hash
+        is_empty.should == true
+      end
+
+      it "price calculation should return nil" do
+        price = @basket.calculate_price @empty_hash, 0
+      end
+    end
+  end
 end
