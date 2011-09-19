@@ -67,7 +67,7 @@ class Basket
   end
 
   def is_empty? titles
-    titles.keys.each { |title| return false if titles[title] > 0 }
+    titles.each_value { |value| return false if value > 0 }
     true
   end
 end
