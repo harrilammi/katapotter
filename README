@@ -1,0 +1,4 @@
+My implementation of KataPotter: http://codingdojo.org/cgi-bin/wiki.pl?KataPotter
+
+Use Ruby 1.9.2. Run tests: rspec spec/basket_spec.rb
+
