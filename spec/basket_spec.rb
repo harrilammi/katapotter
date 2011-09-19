@@ -72,10 +72,14 @@ describe Basket do
       @basket.add([1,1,2,2,3,3,4,5])
       @basket.price.should == 2*8*4*0.8
     end
+
+    it "should calculate the best discount from set 2" do
+      @basket.add([1,1,1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,4,4,5,5,5,5])
+      @basket.price.should == 3*8*5*0.75+2*8*4*0.8
+    end
   end
 
   describe "helper functions" do
-    
     describe "with books in basket" do
       before :each do
         @basket.add([1,1,2,2,2,3,3,4,4,4,4])
@@ -96,7 +100,7 @@ describe Basket do
         titles[5].should == 0
       end
 
-      it "should recognize basket has books" do
+      it "should recognize non-empty basket" do
         is_empty = @basket.is_empty? @basket.titles
         is_empty.should == false
       end
