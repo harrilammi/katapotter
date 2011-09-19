@@ -117,7 +117,7 @@ describe Basket do
       end
 
       it "price calculation should return nil" do
-        price = @basket.calculate_price @empty_hash, 0
+        price = @basket.calculate_price @empty_hash
       end
     end
   end
